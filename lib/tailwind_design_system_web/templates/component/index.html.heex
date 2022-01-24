@@ -1,0 +1,107 @@
+<section class="row">
+  <article class="column">
+    <div class="my-4">
+      <a href="/"> 
+        <i class="fas fa-chevron-left"></i>
+        <span class="text-4">back</span>
+      </a>
+    </div>
+    <h3 class="text-6 m-4 font-header text-center">
+      Buttons
+    </h3>
+    <div class="text-center block my-8">
+      <button class="button-primary-default hover:button-primary-hover active:button-primary-active disabled:button-primary-disabled">
+        Press me!
+      </button>
+      <span class="my-4 block">
+        ~ states ~
+      </span>
+      <div class="flex justify-center">
+        <div class="flex flex-col mx-2">
+          <button class="button-primary-default">Button</button>
+          <span class="caption-text">default</span>
+        </div>
+        <div class="flex flex-col mx-2">
+          <button class="button-primary-hover">Button</button>
+          <span class="caption-text">hover</span>
+        </div>
+        <div class="flex flex-col mx-2">
+          <button class="button-primary-active">Button</button>
+          <span class="caption-text">active</span>
+        </div>
+        <div class="flex flex-col mx-2">
+          <button class="button-primary-disabled">Button</button>
+          <span class="caption-text">disbaled</span>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <pre class="flex flex-col justify-center items-center text-left mt-8 mx-2">
+          <code class="elixir language-elixir rounded-medium pt-4 pb-8 pr-4 bg-[#F5F7FA] text-[#1F2933]"><button class="float-right" id="htmlBtn"><i class="far fa-copy"></i></button><span>
+  <%= displayHTML("  <button
+      class='
+        button-primary-default 
+        hover:button-primary-hover 
+        active:button-primary-active 
+        disabled:button-primary-disabled
+      '>
+      Press me!
+    </button>"
+  ) %></span></code>
+          <span class="caption-text">html</span>
+        </pre>
+        <pre class="flex flex-col justify-center items-center text-left mt-8 mx-2">
+          <code class="elixir language-elixir rounded-medium pt-4 pb-8 pr-4 bg-[#F5F7FA] text-[#1F2933]"><button class="float-right" id="eexBtn"><i class="far fa-copy"></i></button><span>
+  <%= displayHTML('  content_tag(
+      :button, 
+      "Press me!", 
+      class: 
+        "button-primary-default 
+        hover:button-primary-hover 
+        active:button-primary-active 
+        disabled:button-primary-disabled"
+      )'
+  ) %></span></code>
+          <span class="caption-text">eex</span>
+        </pre>
+      </div>
+    </div>
+  </article>
+</section>
+
+<script>
+  const htmlBtn = document.getElementById('htmlBtn')
+  const eexBtn = document.getElementById('eexBtn')
+
+  function fallbackCopyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+  
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+  
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+  }
+
+  function copyTextToClipboard(text) {
+    if (!navigator.clipboard) {
+      fallbackCopyTextToClipboard(text);
+      return;
+    }
+    navigator.clipboard.writeText(text)
+  }
+  
+  htmlBtn.addEventListener('click', function(event) {
+    // below: copy element (as seen) in the example
+    // const element = data.nextElementSibling;
+    // copyTextToClipboard(element.innerText);
+    let text = '<button class="button-primary-default hover:button-primary-hover active:button-primary-active disabled:button-primary-disabled">Press me!</button>'
+
+    copyTextToClipboard(text);
+  });
+
+  eexBtn.addEventListener('click', function(event) {
+    copyTextToClipboard('content_tag(:button, "Press me!", class: "button-primary-default hover:button-primary-hover active:button-primary-active disabled:button-primary-disabled")');
+  });
+</script>
